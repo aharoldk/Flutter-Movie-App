@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/home.dart';
-import 'package:flutter_movie_app/upcoming.dart';
+import 'package:flutter_movie_app/home_page.dart';
+import 'package:flutter_movie_app/upcoming_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,8 +24,8 @@ class MyMain extends StatefulWidget {
 class _MyMainState extends State<MyMain> {
   int currentIndex = 0;
   var pages = [
-    new Home(),
-    new Upcoming(),
+    new HomePage(),
+    new UpcomingPage(),
   ];
 
   @override
@@ -36,25 +36,24 @@ class _MyMainState extends State<MyMain> {
       ),
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-          items: [
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.home),
-              title: new Text('Home'),
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.calendar_today),
-              title: new Text('Coming Soon'),
-            ),
-          ],
+        items: [
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            title: new Text('Home'),
+          ),
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.calendar_today),
+            title: new Text('Coming Soon'),
+          ),
+        ],
         currentIndex: currentIndex,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
+          setState(() {
+            currentIndex = index;
+          });
         },
       ),
     );
   }
-
 }

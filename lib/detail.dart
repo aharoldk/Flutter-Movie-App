@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/podo/results_podo.dart';
+import 'package:flutter_movie_app/podo/results.dart';
 
 class Detail extends StatelessWidget {
   final Results results;
@@ -15,16 +15,14 @@ class Detail extends StatelessWidget {
       children: <Widget>[
         new Container(
           decoration: new BoxDecoration(
-            image: new DecorationImage(
-                image: new NetworkImage(results.poster_path),
-                fit: BoxFit.cover
-            )
-          ),
+              image: new DecorationImage(
+                  image: new NetworkImage(results.poster_path),
+                  fit: BoxFit.cover)),
           child: new BackdropFilter(
-              filter: new ImageFilter.blur(
-                sigmaX: 3.0,
-                sigmaY: 3.0,
-              ),
+            filter: new ImageFilter.blur(
+              sigmaX: 3.0,
+              sigmaY: 3.0,
+            ),
             child: new Container(
               decoration: new BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
