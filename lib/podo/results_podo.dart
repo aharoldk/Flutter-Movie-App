@@ -43,7 +43,7 @@ class Results {
       original_language: parsedJson['original_language'],
       original_title: parsedJson['original_title'],
       vote_count: parsedJson['vote_count'],
-      poster_path: parsedJson['poster_path'],
+      poster_path: 'https://image.tmdb.org/t/p/w500'+parsedJson['poster_path'],
       video: parsedJson['video'],
       genre_ids: genre_ids,
       popularity: parsedJson['popularity'].toDouble(),
