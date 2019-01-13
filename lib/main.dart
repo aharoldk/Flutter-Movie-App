@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/podo/popular_podo.dart';
-import 'package:http/http.dart' as http;
-
-const url = 'https://api.themoviedb.org/3/movie/popular?api_key=3ee47da55c8dae070eb764306712efc3&language=en-US&page=1';
+import 'package:flutter_movie_app/home.dart';
+import 'package:flutter_movie_app/upcoming.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,72 +11,50 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Movie',
       theme: ThemeData.dark(),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyMain(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class MyMain extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyMainState createState() => _MyMainState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  Popular _popular;
-
-  @override
-  void initState() {
-    super.initState();
-    print('here');
-
-    _fetchPopularMovie();
-  }
+class _MyMainState extends State<MyMain> {
+  int currentIndex = 0;
+  var pages = [
+    new Home(),
+    new Upcoming(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            widget.title,
-            style: TextStyle(
-                color: Colors.yellow,
-            ),
-          ),
-        ),
+        title: Text("Flutter List Movie"),
       ),
-      body: GridView.builder(
-          itemBuilder: (context, position) {
-            return GestureDetector(
-              onTap: _handleTapDown,
-              child: Card(
-                child: Image.network(
-                    'https://image.tmdb.org/t/p/w500'+_popular.results[position].poster_path,
-                    fit: BoxFit.cover
-                ),
-              ),
-            );
-          },
-        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.6),
-        itemCount: _popular.results.length,
+      body: pages[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+          items: [
+            new BottomNavigationBarItem(
+              icon: new Icon(Icons.home),
+              title: new Text('Home'),
+            ),
+            new BottomNavigationBarItem(
+              icon: new Icon(Icons.calendar_today),
+              title: new Text('Coming Soon'),
+            ),
+          ],
+        currentIndex: currentIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+        },
       ),
     );
   }
 
-  _fetchPopularMovie() async {
-    var response = await http.get(url);
-    print(response.body);
-    Map<String, dynamic> parsed = jsonDecode(response.body);
-    setState(() {
-      _popular = Popular.fromJson(parsed);
-    });
-  }
-
-  void _handleTapDown() {
-    print('Uhuy');
-  }
 }
