@@ -9,6 +9,8 @@ class Detail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String _tag = "image" + results.id.toString();
+
     return new Stack(
       children: <Widget>[
         new Container(
@@ -32,7 +34,7 @@ class Detail extends StatelessWidget {
         ),
         new Center(
           child: Hero(
-            tag: "image",
+            tag: _tag,
             child: Image.network(
               results.poster_path,
               width: 300.0,
